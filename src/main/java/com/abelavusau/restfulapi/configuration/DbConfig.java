@@ -3,45 +3,29 @@ package com.abelavusau.restfulapi.configuration;
 import javax.sql.DataSource;
 
 import org.apache.tomcat.dbcp.dbcp2.BasicDataSource;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 @Configuration
 @PropertySource(value = "classpath:db.properties")
 public class DbConfig {
-	@Value("${jdbc.driverClassName}")
-	private String driverClassName;
-	@Value("${jdbc.url}")
-	private String url;
-	@Value("${jdbc.username}")
-	private String username;
-	@Value("${jdbc.password}")
-	private String password;
-
-	@Bean
-	public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
-		return new PropertySourcesPlaceholderConfigurer();
-	}
-
+	
 	@Bean(name = "dataSource")
-	public DataSource getDataSource() {
+	public DataSource getDataSource(Environment env) {
 		BasicDataSource dataSource = new BasicDataSource();
-		dataSource.setDriverClassName(driverClassName);
-		dataSource.setUrl(url);
-		dataSource.setUsername(username);
-		dataSource.setPassword(password);
+		dataSource.setDriverClassName(env.getProperty("jdbc.driverClassName"));
+		dataSource.setUrl(env.getProperty("jdbc.url"));
+		dataSource.setUsername(env.getProperty("jdbc.username"));
+		dataSource.setPassword(env.getProperty("jdbc.password"));
 
 		return dataSource;
 	}
-	
+
 	@Bean(name = "jdbcTemplate")
-	public JdbcTemplate getJdbcTemplate() {
-		return new JdbcTemplate(getDataSource());
+	public JdbcTemplate getJdbcTemplate(DataSource dataSource) {
+		return new JdbcTemplate(dataSource);
 	}
 }
