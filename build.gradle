@@ -28,6 +28,8 @@ dependencies {
     compile 'javax.servlet:servlet-api:3.0-alpha-1'
     compile 'org.postgresql:postgresql:9.4-1203-jdbc42'
     compile 'org.apache.tomcat:tomcat-dbcp:8.0.26'
+    compile 'com.fasterxml.jackson.core:jackson-core:2.6.2'
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.6.2'
     
     // Declare the dependency for your favourite test framework you want to use in your tests.
     // TestNG is also supported by the Gradle Test task. Just change the

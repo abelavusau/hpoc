@@ -3,23 +3,25 @@ package com.abelavusau.restfulapi.configuration;
 import javax.sql.DataSource;
 
 import org.apache.tomcat.dbcp.dbcp2.BasicDataSource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
+import org.springframework.core.env.Environment;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 @Configuration
 @PropertySource(value = "classpath:db.properties")
 public class DbConfig {
-	@Value("${driverClassName}")
+	@Value("${jdbc.driverClassName}")
 	private String driverClassName;
-	@Value("${url}")
+	@Value("${jdbc.url}")
 	private String url;
-	@Value("${username}")
+	@Value("${jdbc.username}")
 	private String username;
-	@Value("${password}")
+	@Value("${jdbc.password}")
 	private String password;
 
 	@Bean

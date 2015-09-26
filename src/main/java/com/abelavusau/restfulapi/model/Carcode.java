@@ -11,7 +11,7 @@ public class Carcode implements Serializable {
     private Long cddDealerId;
     private Long ccMessageId;
     private Long ccReplyId;
-    private String messageНype;
+    private String messageType;
     private Long ccSalesPersonId;
     private String name;
     private String body;
@@ -86,12 +86,12 @@ public class Carcode implements Serializable {
         this.ccReplyId = ccReplyId;
     }
 
-    public String getMessageНype() {
-        return messageНype;
+    public String getMessageType() {
+        return messageType;
     }
 
-    public void setMessageНype(String messageНype) {
-        this.messageНype = messageНype;
+    public void setMessageType(String messageType) {
+        this.messageType = messageType;
     }
 
     public Long getCcSalesPersonId() {
