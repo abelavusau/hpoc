@@ -21,7 +21,7 @@ public class AppConfig {
 
 	@Bean
 	public MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter() {
-		List<MediaType> supportedMediaTypes = new ArrayList<MediaType>(2);
+		List<MediaType> supportedMediaTypes = new ArrayList<MediaType>(1);
 		supportedMediaTypes.add(APPLICATION_JSON);
 
 		MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
