@@ -13,7 +13,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 @PropertySource(value = "classpath:db.properties")
 public class DbConfig {
 	
-	@Bean(name = "dataSource")
+	@Bean
 	public DataSource getDataSource(Environment env) {
 		BasicDataSource dataSource = new BasicDataSource();
 		dataSource.setDriverClassName(env.getProperty("jdbc.driverClassName"));
@@ -24,7 +24,7 @@ public class DbConfig {
 		return dataSource;
 	}
 
-	@Bean(name = "jdbcTemplate")
+	@Bean
 	public JdbcTemplate getJdbcTemplate(DataSource dataSource) {
 		return new JdbcTemplate(dataSource);
 	}
