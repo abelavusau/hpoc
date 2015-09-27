@@ -17,7 +17,9 @@ public class LeadVODaoImpl implements LeadVODao {
 	
 	private final LeadVOMapper MAPPER = new LeadVOMapper();
 	
-	private final String SQL = "SELECT * FROM F_LEAD";
+	private final String SQL = "SELECT session_id, customer_email, dealer_distance,  array_to_string(array_agg(k_lead_id ), ',') as lead_ids, lead_type, offer_price, price_promise_flag " +
+			"FROM f_lead " +
+			"GROUP BY session_id, customer_email, dealer_distance, lead_type, offer_price, price_promise_flag;";
 	
 	@Override
 	public List<LeadVO> getAll() {

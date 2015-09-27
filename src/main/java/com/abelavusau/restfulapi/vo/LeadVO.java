@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 public class LeadVO {
-	private Long leadId;
+	private List<Long> leadIds;
 	private String sessionId;
 	private String dealerDistance;
 	private String pricePromiseFlag;
@@ -15,12 +15,12 @@ public class LeadVO {
 	private List<Integer> viewedCars;
 	private Date decisionTime;
 	
-	public Long getLeadId() {
-		return leadId;
+	public List<Long> getLeadIds() {
+		return leadIds;
 	}
 
-	public void setLeadId(Long leadId) {
-		this.leadId = leadId;
+	public void setLeadIds(List<Long> leadIds) {
+		this.leadIds = leadIds;
 	}
 
 	public String getSessionId() {
