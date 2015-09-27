@@ -1,9 +1,9 @@
-package com.abelavusau.restfulapi.model;
+package com.abelavusau.restfulapi.domain;
 
 import java.io.Serializable;
 import java.util.Date;
 
-public class Lead implements Serializable {
+public class LeadDO implements Serializable {
 
     private Long leadId;
     private Date leadDate;

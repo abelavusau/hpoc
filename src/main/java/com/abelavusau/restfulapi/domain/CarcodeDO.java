@@ -1,9 +1,9 @@
-package com.abelavusau.restfulapi.model;
+package com.abelavusau.restfulapi.domain;
 
 import java.io.Serializable;
 import java.util.Date;
 
-public class Carcode implements Serializable {
+public class CarcodeDO implements Serializable {
 
     private String carCodeId;
     private Long partnerLeadId;

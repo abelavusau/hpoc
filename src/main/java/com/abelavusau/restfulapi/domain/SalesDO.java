@@ -1,8 +1,8 @@
-package com.abelavusau.restfulapi.model;
+package com.abelavusau.restfulapi.domain;
 
 import java.io.Serializable;
 
-public class Sales implements Serializable {
+public class SalesDO implements Serializable {
 
     private Long transactionId;
     private Long purchaseDealerId;
