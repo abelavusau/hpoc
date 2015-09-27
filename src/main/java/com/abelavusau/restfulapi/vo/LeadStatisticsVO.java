@@ -4,8 +4,11 @@ package com.abelavusau.restfulapi.vo;
 import java.util.Date;
 import java.util.List;
 
+import com.abelavusau.restfulapi.model.SalesModel;
+
 public class LeadStatisticsVO {
     private List<Long> leadIds;
+    private List<SalesModel> sales;
     private Integer leadsTotal;
 
     private String sessionId;
@@ -104,5 +107,13 @@ public class LeadStatisticsVO {
 
     public void setDecisionTime(Date decisionTime) {
         this.decisionTime = decisionTime;
+    }
+
+    public List<SalesModel> getSales() {
+        return sales;
+    }
+
+    public void setSales(List<SalesModel> sales) {
+        this.sales = sales;
     }
 }

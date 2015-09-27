@@ -1,11 +1,14 @@
 package com.abelavusau.restfulapi.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.abelavusau.restfulapi.model.LeadStatisticsModel;
+import com.abelavusau.restfulapi.model.SalesModel;
 import com.abelavusau.restfulapi.service.LeadService;
 import com.abelavusau.restfulapi.service.SalesService;
 import com.abelavusau.restfulapi.vo.LeadStatisticsVO;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.core.convert.TypeDescriptor;
@@ -26,11 +29,13 @@ public class ResourceController {
 	@RequestMapping("/resources")
 	public List<LeadStatisticsVO> getLeads() {
 		List<LeadStatisticsModel> leadStatisticsModel = leadService.findAll();
-		List<LeadStatisticsVO> statistics = (List<LeadStatisticsVO>)conversionService.convert(leadStatisticsModel,
-				TypeDescriptor.collection(List.class, TypeDescriptor.valueOf(LeadStatisticsModel.class)),
-				TypeDescriptor.collection(List.class, TypeDescriptor.valueOf(LeadStatisticsVO.class)));
-
-		return statistics;
+		List<LeadStatisticsVO> result = new ArrayList<>();
+		leadStatisticsModel.forEach(lead -> {
+			LeadStatisticsVO statisticsVO = conversionService.convert(lead, LeadStatisticsVO.class);
+			statisticsVO.setSales(salesService.getSales(lead.getLeadIds()));
+			result.add(statisticsVO);
+		});
+		return result;
 
 	}
 }
