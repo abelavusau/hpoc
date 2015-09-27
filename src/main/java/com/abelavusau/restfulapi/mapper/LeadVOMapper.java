@@ -15,6 +15,9 @@ public class LeadVOMapper implements RowMapper<LeadVO> {
 		leadVO.setDealerDistance(rs.getString("dealer_distance"));
 		leadVO.setLeadId(rs.getLong("k_lead_id"));
 		leadVO.setSessionId(rs.getString("session_id"));
+		leadVO.setLeadType(rs.getString("lead_type"));
+		leadVO.setOfferPrice(rs.getString("offer_price"));
+		leadVO.setPricePromiseFlag(rs.getString("price_promise_flag"));
 		return leadVO;
 	}
 }
