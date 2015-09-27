@@ -17,10 +17,10 @@ public class LeadVODaoImpl implements LeadVODao {
 	
 	private final LeadVOMapper MAPPER = new LeadVOMapper();
 	
-	private final String sql = "SELECT * FROM F_LEAD";
+	private final String SQL = "SELECT * FROM F_LEAD";
 	
 	@Override
 	public List<LeadVO> getAll() {
-		return template.query(sql, MAPPER);
+		return template.query(SQL, MAPPER);
 	}
 }
