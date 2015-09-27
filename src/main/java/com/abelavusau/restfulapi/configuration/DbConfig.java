@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 @Configuration
 @PropertySource(value = "classpath:db.properties")
@@ -27,5 +28,10 @@ public class DbConfig {
 	@Bean
 	public JdbcTemplate getJdbcTemplate(DataSource dataSource) {
 		return new JdbcTemplate(dataSource);
+	}
+	
+	@Bean
+	public NamedParameterJdbcTemplate getNamedParameterJdbcTemplate(DataSource dataSource) {
+		return new NamedParameterJdbcTemplate(dataSource);
 	}
 }
