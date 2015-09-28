@@ -1,17 +1,15 @@
 package com.a3m.model;
 
-import java.math.BigDecimal;
-
 public class DistanceMetric {
-    private long threshold;
+    private long distance;
     private Double value;
 
-    public long getThreshold() {
-        return threshold;
+    public long getDistance() {
+        return distance;
     }
 
-    public void setThreshold(long threshold) {
-        this.threshold = threshold;
+    public void setDistance(long distance) {
+        this.distance = distance;
     }
 
     public Double getValue() {

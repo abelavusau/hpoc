@@ -30,7 +30,7 @@ public class DistanceServiceImpl implements DistanceService {
 
         for(DistanceRange range : DistanceRange.values()) {
             DistanceMetric metric = new DistanceMetric();
-            metric.setThreshold(range.getTo());
+            metric.setDistance(range.getTo());
             Long distances = distanceDao.getDistancesFromInterval(range.getTo());
             metric.setValue(Double.valueOf(distances) / totalDistances);
             metrics.add(metric);
