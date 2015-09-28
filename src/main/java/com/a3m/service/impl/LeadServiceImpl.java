@@ -29,4 +29,10 @@ public class LeadServiceImpl implements LeadService {
                 TypeDescriptor.collection(List.class, TypeDescriptor.valueOf(LeadStatisticsDO.class)),
                 TypeDescriptor.collection(List.class, TypeDescriptor.valueOf(LeadStatisticsModel.class)));
     }
+
+    @Override
+    public LeadStatisticsModel findById(Long leadId) {
+        LeadStatisticsDO leadDo = leadDao.getById(leadId);
+        return conversionService.convert(leadDo, LeadStatisticsModel.class);
+    }
 }

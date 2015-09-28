@@ -6,4 +6,5 @@ import com.a3m.model.LeadStatisticsModel;
 
 public interface LeadService {
     List<LeadStatisticsModel> findAll();
+    LeadStatisticsModel findById(Long leadId);
 }
