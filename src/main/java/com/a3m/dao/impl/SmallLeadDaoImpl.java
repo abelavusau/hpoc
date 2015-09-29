@@ -28,25 +28,32 @@ public class SmallLeadDaoImpl implements SmallLeadDao {
     @Autowired
     private JdbcTemplate jdbcTemplate;
     
-    private final static String SELECT_BY_ID_SQL = "SELECT * FROM lead where ld_lead_id = ?";
+    private final static String SELECT_SMALL_LEAD_BY_ID_SQL = 
+    		"SELECT r.rf_edmunds_make"
+    		+ ", r.rf_edmunds_year"
+    		+ ", l.ld_price_promise_flag"
+    		+ ", r.rf_offer_price"
+    		+ " FROM lead l, referral r "
+    		+ " where l.ld_lead_id = r.rf_lead_id"
+    		+ " and l.ld_lead_id = ?";
     
-    private RowMapper<SmallLeadDO> SMALL_LEAD_MAPPER = new SmallLeadDOMapper();
+    private final RowMapper<SmallLeadDO> SMALL_LEAD_MAPPER = new SmallLeadDOMapper();
 
     private final static String SELECT_LEADS_COUNT_BY_CRYTERIA = 
     		"select count(*) as total"
     		+ " from lead l, referral r"
     		+ " where r.rf_edmunds_make = :vehicle_make"
-    		+ " r.rf_edmunds_year between :vehicle_year_from"
+    		+ " and r.rf_edmunds_year between :vehicle_year_from"
     		+ " and :vehicle_year_to"
     		+ " and l.ld_price_promise_flag = :price_promise_flag";
     
     private final static String SELECT_SUCCESFUL_LEADS_COUNT_BY_CRYTERIA =
     		"select count(*) as total"
-    		+ " from lead l, sales s, referral r" +
-            "  where l.ld_lead_id = s.lead_id"
+    		+ " from lead l, sales s, referral r"
+    		+ " where l.ld_lead_id = s.lead_id"
             + " and r.rf_edmunds_make = :vehicle_make"
-            + " and rf.rf_edmunds_year between :vehicle_year_from"
-            + " and :vehicle_year_to and l.ld_price_promise_flag = :price_promise_flag";
+            + " and r.rf_edmunds_year between :vehicle_year_from and :vehicle_year_to"
+            + " and l.ld_price_promise_flag = :price_promise_flag";
 
     private final RowMapper<Long> TOTAL_ROW_MAPPER = new RowMapper<Long>() {
         @Override
@@ -74,7 +81,7 @@ public class SmallLeadDaoImpl implements SmallLeadDao {
 
     @Override
     public SmallLeadDO findById(Long leadId) {
-        List<SmallLeadDO> results = jdbcTemplate.query(SELECT_BY_ID_SQL, new Object[]{leadId},
+        List<SmallLeadDO> results = jdbcTemplate.query(SELECT_SMALL_LEAD_BY_ID_SQL, new Object[]{leadId},
                 SMALL_LEAD_MAPPER);
         if (CollectionUtils.isNotEmpty(results)) {
             return DataAccessUtils.singleResult(results);
@@ -87,7 +94,7 @@ public class SmallLeadDaoImpl implements SmallLeadDao {
         namedParameters.put("vehicle_make", criteria.getVehicleMake());
         namedParameters.put("vehicle_year_from", criteria.getYear() - criteria.getYearDelta());
         namedParameters.put("vehicle_year_to", criteria.getYear() + criteria.getYearDelta());
-        namedParameters.put("price_promise_flag", criteria.isPricePromise() ? "Y" : "N");
+        namedParameters.put("price_promise_flag", criteria.isPricePromise());
         return namedParameters;
     }
 

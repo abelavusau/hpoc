@@ -4,10 +4,12 @@ package com.a3m.model;
 import java.io.Serializable;
 
 public class SmallLeadModel implements Serializable {
-    private String vehicleMake;
+	private static final long serialVersionUID = 1L;
+	
+	private String vehicleMake;
     private int vehicleYear;
     private Boolean pricePromise;
-    private String offerPrice;
+    private Float offerPrice;
     private Double rate;
 
     public String getVehicleMake() {
@@ -34,11 +36,11 @@ public class SmallLeadModel implements Serializable {
         this.pricePromise = pricePromise;
     }
 
-    public String getOfferPrice() {
+    public Float getOfferPrice() {
         return offerPrice;
     }
 
-    public void setOfferPrice(String offerPrice) {
+    public void setOfferPrice(Float offerPrice) {
         this.offerPrice = offerPrice;
     }
 

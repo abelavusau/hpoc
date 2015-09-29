@@ -5,10 +5,9 @@ public class LeadCriteria {
     public static int DEFAULT_YEAR_DELTA = 2;
 
     private String vehicleMake;
-    private  int year;
+    private int year;
     private int yearDelta;
     private boolean pricePromise;
-
 
     public String getVehicleMake() {
         return vehicleMake;

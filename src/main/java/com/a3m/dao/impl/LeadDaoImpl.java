@@ -41,7 +41,7 @@ public class LeadDaoImpl implements LeadDao {
 			+ " FROM lead l"
 			+ " INNER JOIN referral r"
 			+ " ON l.ld_lead_id = r.rf_lead_id"
-			+ " where ld_lead_id = ?";
+			+ " where l.ld_lead_id = ?";
 
 	private final static String SELECT_ALL_LEADS_SQL = "SELECT * from LEAD";
 	

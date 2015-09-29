@@ -2,9 +2,9 @@ package com.a3m.domain;
 
 public class SmallLeadDO {
     private String vehicleMake;
-    private String vehicleYear;
-    private String pricePromise;
-    private String offerPrice;
+    private Integer vehicleYear;
+    private Boolean pricePromiseFlag;
+    private Float offerPrice;
 
     public String getVehicleMake() {
         return vehicleMake;
@@ -14,27 +14,27 @@ public class SmallLeadDO {
         this.vehicleMake = vehicleMake;
     }
 
-    public String getVehicleYear() {
+    public Integer getVehicleYear() {
         return vehicleYear;
     }
 
-    public void setVehicleYear(String vehicleYear) {
+    public void setVehicleYear(Integer vehicleYear) {
         this.vehicleYear = vehicleYear;
     }
 
-    public String isPricePromise() {
-        return pricePromise;
+    public Boolean isPricePromise() {
+        return pricePromiseFlag;
     }
 
-    public void setPricePromise(String pricePromise) {
-        this.pricePromise = pricePromise;
+    public void setPricePromise(Boolean pricePromiseFlag) {
+        this.pricePromiseFlag = pricePromiseFlag;
     }
 
-    public String getOfferPrice() {
+    public Float getOfferPrice() {
         return offerPrice;
     }
 
-    public void setOfferPrice(String offerPrice) {
+    public void setOfferPrice(Float offerPrice) {
         this.offerPrice = offerPrice;
     }
 }
