@@ -49,6 +49,7 @@ public class SalesDAOImpl implements SalesDAO {
 		Map<String, ? super Object> paramMap = new HashMap<String, Object>(2);
 		paramMap.put("newLeadId", newLeadId);
 		paramMap.put("currentLeadId", sales.getLeadId());
+
 		template.update(UPDATE_SALES_TO_MATCH_LEAD_QUERY, paramMap);
 	}
 }

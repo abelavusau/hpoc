@@ -43,12 +43,18 @@ public class SalesServiceImpl implements SalesService {
 	public void updateSalesToMatchLeads(int successPercentage) {
 		List<LeadDO> leads = leadDAO.getAllLeads();
 		List<SalesDO> sales = salesDAO.getSales();
-		
-		for (SalesDO salesDO : sales) {
-			if (RANDOM.nextInt(100) <= successPercentage) {
-				salesDAO.updateSalesToMatchLeads(salesDO, getRandomLeadId(leads));
-			}
-		}
+
+        int t = (int)(leads.size() * successPercentage / 100.);
+        for (int i = 0; i < t; ++i) {
+           Long successfulLeadId = getRandomLeadId(leads);
+            salesDAO.updateSalesToMatchLeads(sales.get(RANDOM.nextInt(sales.size())), successfulLeadId);
+        }
+//
+//		for (SalesDO salesDO : sales) {
+//			if (RANDOM.nextInt(100) <= successPercentage) {
+//				salesDAO.updateSalesToMatchLeads(salesDO, getRandomLeadId(leads));
+//			}
+//		}
 	}
 	
 	private Long getRandomLeadId(List<LeadDO> leads) {
