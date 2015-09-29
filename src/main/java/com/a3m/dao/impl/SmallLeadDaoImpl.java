@@ -22,12 +22,31 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class SmallLeadDaoImpl implements SmallLeadDao {
 
-    private final String SELECT_BY_ID_SQL = "SELECT * FROM f_lead where k_lead_id = ?";
+	@Autowired
+    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-    private final String SELECT_LEADS_COUNT_BY_CRYTERIA = "select count(*) as total from f_lead where vehicle_make = :vehicle_make and CAST(nullif(vehicle_year, '') AS integer) between :vehicle_year_from and :vehicle_year_to and price_promise_flag = :price_promise_flag";
-    private final String SELECT_SUCCESFUL_LEADS_COUNT_BY_CRYTERIA = "select count(*) as total from f_lead l, sales s" +
-            "  where l.k_lead_id = s.lead_id and l.vehicle_make = :vehicle_make and CAST(nullif(l.vehicle_year, '') AS integer) between :vehicle_year_from and :vehicle_year_to and l.price_promise_flag = :price_promise_flag";
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
+    
+    private final static String SELECT_BY_ID_SQL = "SELECT * FROM lead where ld_lead_id = ?";
+    
+    private RowMapper<SmallLeadDO> SMALL_LEAD_MAPPER = new SmallLeadDOMapper();
 
+    private final static String SELECT_LEADS_COUNT_BY_CRYTERIA = 
+    		"select count(*) as total"
+    		+ " from lead l, referral r"
+    		+ " where r.rf_edmunds_make = :vehicle_make"
+    		+ " r.rf_edmunds_year between :vehicle_year_from"
+    		+ " and :vehicle_year_to"
+    		+ " and l.ld_price_promise_flag = :price_promise_flag";
+    
+    private final static String SELECT_SUCCESFUL_LEADS_COUNT_BY_CRYTERIA =
+    		"select count(*) as total"
+    		+ " from lead l, sales s, referral r" +
+            "  where l.ld_lead_id = s.lead_id"
+            + " and r.rf_edmunds_make = :vehicle_make"
+            + " and rf.rf_edmunds_year between :vehicle_year_from"
+            + " and :vehicle_year_to and l.ld_price_promise_flag = :price_promise_flag";
 
     private final RowMapper<Long> TOTAL_ROW_MAPPER = new RowMapper<Long>() {
         @Override
@@ -36,17 +55,8 @@ public class SmallLeadDaoImpl implements SmallLeadDao {
         }
     };
 
-    private RowMapper<SmallLeadDO> SMALL_LEAD_MAPPER = new SmallLeadDOMapper();
-
-    @Autowired
-    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
-
-
-
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public Long findTotalCountByCriteria(LeadCriteria criteria) {
 
         Map namedParameters = criteriaToMap(criteria);
@@ -54,7 +64,8 @@ public class SmallLeadDaoImpl implements SmallLeadDao {
                 namedParameters,  TOTAL_ROW_MAPPER);
     }
 
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public Long findSuccessfulCountByCriteria(LeadCriteria criteria) {
         Map namedParameters = criteriaToMap(criteria);
         return namedParameterJdbcTemplate.queryForObject(SELECT_SUCCESFUL_LEADS_COUNT_BY_CRYTERIA,

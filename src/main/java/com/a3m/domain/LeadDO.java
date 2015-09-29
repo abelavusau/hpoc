@@ -42,7 +42,7 @@ public class LeadDO implements Serializable {
 	private Long ld_partner_lead_id;
 	private String ld_lead_unique_id;
 	private String ld_s3_certificate_url;
-	private String ld_price_promise_flag;
+	private Boolean ld_price_promise_flag;
 
 	public Long getLd_lead_id() {
 		return ld_lead_id;
@@ -332,11 +332,11 @@ public class LeadDO implements Serializable {
 		this.ld_s3_certificate_url = ld_s3_certificate_url;
 	}
 
-	public String getLd_price_promise_flag() {
+	public Boolean getLd_price_promise_flag() {
 		return ld_price_promise_flag;
 	}
 
-	public void setLd_price_promise_flag(String ld_price_promise_flag) {
+	public void setLd_price_promise_flag(Boolean ld_price_promise_flag) {
 		this.ld_price_promise_flag = ld_price_promise_flag;
 	}
 }

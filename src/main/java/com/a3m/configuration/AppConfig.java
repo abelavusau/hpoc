@@ -3,7 +3,6 @@ package com.a3m.configuration;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.a3m.service.converter.SmalLeadDoToSmalLeadModelConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -17,6 +16,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import com.a3m.controller.converter.LeadStatisticsModelToLeadStatisticsVOConverter;
 import com.a3m.service.converter.LeadStatisticsDoToLeadStatisticsModelConverter;
 import com.a3m.service.converter.SalesDOToSalesModelConverter;
+import com.a3m.service.converter.SmalLeadDoToSmalLeadModelConverter;
 
 @Configuration
 @EnableWebMvc
@@ -39,13 +39,15 @@ public class AppConfig {
 		return object;
 	}
 
+	@SuppressWarnings("rawtypes")
 	private Set<Converter> getConverters() {
 		Set<Converter> converters = new HashSet<Converter>();
 
 		converters.add(new LeadStatisticsDoToLeadStatisticsModelConverter());
 		converters.add(new LeadStatisticsModelToLeadStatisticsVOConverter());
 		converters.add(new SalesDOToSalesModelConverter());
-
+		converters.add(new SmalLeadDoToSmalLeadModelConverter());
+		
 		return converters;
 	}
 }
