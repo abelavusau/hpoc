@@ -3,6 +3,7 @@ package com.a3m.configuration;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.a3m.service.converter.SmalLeadDoToSmalLeadModelConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;

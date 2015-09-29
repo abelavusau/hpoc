@@ -2,18 +2,18 @@ package com.a3m.dao.impl;
 
 import java.util.List;
 
-import com.a3m.dao.LeadDao;
-import com.a3m.domain.LeadDO;
-import com.a3m.domain.LeadStatisticsDO;
-import com.a3m.mapper.LeadDOMapper;
-import com.a3m.mapper.LeadStatisticsDOMapper;
-
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapperResultSetExtractor;
 import org.springframework.stereotype.Repository;
+
+import com.a3m.dao.LeadDao;
+import com.a3m.domain.LeadDO;
+import com.a3m.domain.LeadStatisticsDO;
+import com.a3m.mapper.LeadDOMapper;
+import com.a3m.mapper.LeadStatisticsDOMapper;
 
 @Repository
 public class LeadDaoImpl implements LeadDao {
