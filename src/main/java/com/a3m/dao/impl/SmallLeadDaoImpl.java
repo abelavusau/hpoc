@@ -42,7 +42,8 @@ public class SmallLeadDaoImpl implements SmallLeadDao {
     private final static String SELECT_LEADS_COUNT_BY_CRYTERIA = 
     		"select count(*) as total"
     		+ " from lead l, referral r"
-    		+ " where r.rf_edmunds_make = :vehicle_make"
+    		+ " where l.ld_lead_id = r.rf_lead_id"
+            + " and  r.rf_edmunds_make = :vehicle_make"
     		+ " and r.rf_edmunds_year between :vehicle_year_from"
     		+ " and :vehicle_year_to"
     		+ " and l.ld_price_promise_flag = :price_promise_flag";
@@ -51,6 +52,7 @@ public class SmallLeadDaoImpl implements SmallLeadDao {
     		"select count(*) as total"
     		+ " from lead l, sales s, referral r"
     		+ " where l.ld_lead_id = s.lead_id"
+            + " and r.rf_lead_id = s.lead_id"
             + " and r.rf_edmunds_make = :vehicle_make"
             + " and r.rf_edmunds_year between :vehicle_year_from and :vehicle_year_to"
             + " and l.ld_price_promise_flag = :price_promise_flag";
