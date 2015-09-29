@@ -10,7 +10,7 @@ public class LeadStatisticsModel {
 	private String sessionId;
 	private String dealerDistance;
 	private String pricePromiseFlag;
-	private String leadType;
+	private Long leadTypeId;
 	private String offerPrice;
 	private String trueMarketValue;
 	private Integer alikeBuysNumber;
@@ -49,12 +49,12 @@ public class LeadStatisticsModel {
 		this.pricePromiseFlag = pricePromiseFlag;
 	}
 
-	public String getLeadType() {
-		return leadType;
+	public Long getLeadTypeId() {
+		return leadTypeId;
 	}
 
-	public void setLeadType(String leadType) {
-		this.leadType = leadType;
+	public void setLeadTypeId(Long leadTypeId) {
+		this.leadTypeId = leadTypeId;
 	}
 
 	public String getOfferPrice() {

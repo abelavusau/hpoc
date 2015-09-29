@@ -17,7 +17,7 @@ public class LeadStatisticsModelToLeadStatisticsVOConverter implements Converter
         target.setSessionId(source.getSessionId());
         target.setDealerDistance(source.getDealerDistance());
         target.setPricePromiseFlag(source.getPricePromiseFlag());
-        target.setLeadType(source.getLeadType());
+        target.setLeadTypeId(source.getLeadTypeId());
         target.setOfferPrice(source.getOfferPrice());
         target.setTrueMarketValue(source.getTrueMarketValue());
         target.setAlikeBuysNumber(source.getAlikeBuysNumber());

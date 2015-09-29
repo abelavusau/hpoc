@@ -23,17 +23,31 @@ public class LeadDaoImpl implements LeadDao {
 	private final static LeadStatisticsDOMapper LEAD_STATISTIC_MAPPER = new LeadStatisticsDOMapper();
 	private final static LeadDOMapper LEAD_MAPPER = new LeadDOMapper();
 	
-	private final static String SELECT_ALL_SQL = "SELECT session_id, customer_email, dealer_distance,  array_to_string(array_agg(k_lead_id ), ',') as lead_ids, lead_type, offer_price, price_promise_flag " +
-			"FROM f_lead " +
-			"GROUP BY session_id, customer_email, dealer_distance, lead_type, offer_price, price_promise_flag;";
+	private final static String SELECT_ALL_GROUP_BY_SESSION_ID_SQL = "SELECT l.ld_user_session"
+			+ ", l.ld_dealer_distance"
+			+ ", array_to_string(array_agg(ld_lead_id ), ',') as lead_ids"
+			+ ", l.ld_lead_type_id"
+			+ ", l.ld_price_promise_flag"
+			+ ", r.rf_offer_price"
+			+ " FROM lead l INNER JOIN referral r ON l.ld_lead_id = r.rf_lead_id"
+			+ " GROUP BY l.ld_user_session, l.ld_dealer_distance, l.ld_lead_type_id, l.ld_price_promise_flag, r.rf_offer_price";
 
-	private final static String SELECT_BY_ID_SQL = "SELECT session_id, customer_email, dealer_distance,  k_lead_id as lead_ids, lead_type, offer_price, price_promise_flag FROM f_lead where k_lead_id = ?";
+	private final static String SELECT_BY_ID_SQL = "SELECT l.ld_user_session"
+			+ ", l.ld_dealer_distance"
+			+ ", l.ld_lead_id"
+			+ ", l.ld_lead_type_id"
+			+ ", l.ld_price_promise_flag"
+			+ ", r.rf_offer_price"
+			+ " FROM lead l"
+			+ " INNER JOIN referral r"
+			+ " ON l.ld_lead_id = r.rf_lead_id"
+			+ " where ld_lead_id = ?";
 
-	private final static String SELECT_ALL_LEADS_SQL = "SELECT * from F_LEAD";
+	private final static String SELECT_ALL_LEADS_SQL = "SELECT * from LEAD";
 	
 	@Override
 	public List<LeadStatisticsDO> getAll() {
-		return template.query(SELECT_ALL_SQL, LEAD_STATISTIC_MAPPER);
+		return template.query(SELECT_ALL_GROUP_BY_SESSION_ID_SQL, LEAD_STATISTIC_MAPPER);
 	}
 
 	@Override

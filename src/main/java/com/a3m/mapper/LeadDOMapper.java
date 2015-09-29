@@ -12,7 +12,7 @@ public class LeadDOMapper implements RowMapper<LeadDO> {
 	@Override
 	public LeadDO mapRow(ResultSet rs, int rowNum) throws SQLException {
 		LeadDO leadVO = new LeadDO();
-		leadVO.setLeadId(rs.getLong("k_lead_id"));
+		leadVO.setLd_lead_id(rs.getLong("ld_lead_id"));
 		return leadVO;
 	}
 }

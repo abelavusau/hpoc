@@ -52,6 +52,6 @@ public class SalesServiceImpl implements SalesService {
 	}
 	
 	private Long getRandomLeadId(List<LeadDO> leads) {
-		return leads.get(RANDOM.nextInt(leads.size())).getLeadId();
+		return leads.get(RANDOM.nextInt(leads.size())).getLd_lead_id();
 	}
 }

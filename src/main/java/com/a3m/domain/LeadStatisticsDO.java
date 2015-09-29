@@ -5,12 +5,13 @@ import java.util.Date;
 import java.util.List;
 
 public class LeadStatisticsDO implements Serializable {
-    private String leadIds;
+	private static final long serialVersionUID = 1L;
 
+	private String leadIds;
     private String sessionId;
     private String dealerDistance;
     private String pricePromiseFlag;
-    private String leadType;
+    private Long leadTypeId;
     private String offerPrice;
     private String trueMarketValue;
     private Integer alikeBuysNumber;
@@ -49,12 +50,12 @@ public class LeadStatisticsDO implements Serializable {
         this.pricePromiseFlag = pricePromiseFlag;
     }
 
-    public String getLeadType() {
-        return leadType;
+    public Long getLeadTypeId() {
+        return leadTypeId;
     }
 
-    public void setLeadType(String leadType) {
-        this.leadType = leadType;
+    public void setLeadTypeId(Long leadTypeId) {
+        this.leadTypeId = leadTypeId;
     }
 
     public String getOfferPrice() {
