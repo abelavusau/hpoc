@@ -23,4 +23,9 @@ public class SalesController extends AbstractRestController {
 		input.add(leadId);
 		return salesService.getSales(input);
 	}
+	
+	@RequestMapping(value = "/sales/update_to_match_leads", method = RequestMethod.GET)
+	public void updateSalesToMatchLeads() {
+		salesService.updateSalesToMatchLeads(15);
+	}
 }
