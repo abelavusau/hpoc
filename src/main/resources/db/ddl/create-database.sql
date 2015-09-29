@@ -229,17 +229,14 @@ CREATE TABLE
         partner_lead_id BIGINT
     );
 
-    CREATE CARCODE_idx ON f_carcode (k_carcode_id, minor);
-
-
-    CREATE INDEX lead_ld_lead_idx ON lead(ld_lead_id);
-    CREATE INDEX lead_ld_user_session_idx ON lead(ld_user_session);
-    CREATE INDEX lead_ld_dealer_distance_idx ON lead(ld_dealer_distance);
-    CREATE INDEX sales_f_transaction_id_idx ON sales(f_transaction_id);
-    CREATE INDEX sales_purchase_dealer_id_idx ON sales(purchase_dealer_id);
-    CREATE INDEX sales_lead_id_idx ON sales(lead_id);
-    CREATE INDEX sales_partner_lead_id_idx ON sales(partner_lead_id);
-    CREATE INDEX referral_rf_lead_id_idx ON referral(rf_lead_id);
-    CREATE INDEX f_carcode_k_carcode_id_idx ON f_carcode(k_carcode_id);
-    CREATE INDEX f_carcode_partner_lead_id_idx ON f_carcode(partner_lead_id);
+CREATE INDEX lead_ld_lead_idx ON lead(ld_lead_id);
+CREATE INDEX lead_ld_user_session_idx ON lead(ld_user_session);
+CREATE INDEX lead_ld_dealer_distance_idx ON lead(ld_dealer_distance);
+CREATE INDEX sales_f_transaction_id_idx ON sales(f_transaction_id);
+CREATE INDEX sales_purchase_dealer_id_idx ON sales(purchase_dealer_id);
+CREATE INDEX sales_lead_id_idx ON sales(lead_id);
+CREATE INDEX sales_partner_lead_id_idx ON sales(partner_lead_id);
+CREATE INDEX referral_rf_lead_id_idx ON referral(rf_lead_id);
+CREATE INDEX f_carcode_k_carcode_id_idx ON f_carcode(k_carcode_id);
+CREATE INDEX f_carcode_partner_lead_id_idx ON f_carcode(partner_lead_id);
 
