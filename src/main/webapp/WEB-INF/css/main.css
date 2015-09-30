@@ -1,0 +1,84 @@
+.get_btn {
+	margin: 20px 0;
+}
+.lead_card {
+	float: none;
+	margin: 40px auto;
+	padding-right: 0;
+}
+.lead_card.panel-primary>.panel-heading {
+	margin-right: 0;
+	background-image: none;
+	background-repeat: repeat-x;
+	background-color: #0072BC;
+	border: none;
+}
+.panel-title {
+	font-weight: bold;
+	text-align: center;
+	line-height: 40px;
+}
+.panel-body {
+	height: 255px;
+	padding: 0;
+}
+.logo {
+	height: 40px;
+	background-image: url('../logo.png');
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+.fix_lead {
+	padding-top: 15px;
+}
+.range_control {
+	position: relative;
+	padding-bottom: 20px;
+}
+.range_control .start_range {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+}
+.range_control .end_range {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+}
+.range_control .price_label {
+	margin-bottom: 25px;
+}
+.range_control .tmv {
+	position: absolute;
+	bottom: 35px;
+	margin-right: -37px;
+	border-bottom: solid 1px black;
+}
+.range_control .tmv:before {
+	content: '';
+	position: absolute;
+	top: 20px;
+	left: 50%;
+	margin-left: -3px;
+	display: block;
+	width: 0;
+	height: 0;
+	border: solid 3px black;
+	border-width: 6px 3px 0 3px;
+	border-color: black transparent transparent transparent;
+}
+.success_rate {
+	height: 100%;
+	padding: 25px 29px;
+	font-size: 150%;
+	background: #e2e2e2;
+}
+.percent {
+	display: block;
+	margin: 1px 0;
+	font-size: 250%;
+	font-weight: bold;
+}
+.fake {
+	color: #999;
+}

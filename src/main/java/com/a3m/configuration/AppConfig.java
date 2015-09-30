@@ -17,12 +17,15 @@ import com.a3m.controller.converter.LeadStatisticsModelToLeadStatisticsVOConvert
 import com.a3m.service.converter.LeadStatisticsDoToLeadStatisticsModelConverter;
 import com.a3m.service.converter.SalesDOToSalesModelConverter;
 import com.a3m.service.converter.SmalLeadDoToSmalLeadModelConverter;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = { "com.a3m" })
 @Import(value = { DbConfig.class })
-public class AppConfig {
+public class AppConfig extends WebMvcConfigurerAdapter {
 
 	@Bean
 	public MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter() {
@@ -50,4 +53,29 @@ public class AppConfig {
 		
 		return converters;
 	}
+
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/app/**").addResourceLocations(
+                "/WEB-INF/app/");
+        registry.addResourceHandler("/css/**").addResourceLocations(
+                "/WEB-INF/css/");
+        registry.addResourceHandler("/json/**").addResourceLocations(
+                "/WEB-INF/json/");
+        registry.addResourceHandler("/lib/**").addResourceLocations(
+                "/WEB-INF/lib/");
+        registry.addResourceHandler("/**").addResourceLocations(
+                "/WEB-INF/");
+    }
+
+//    @Bean
+//    public InternalResourceViewResolver viewResolver() {
+//        InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
+//        viewResolver.setViewClass(JstlView.class);
+//        viewResolver.setPrefix("/WEB-INF/jsp/");
+//        viewResolver.setSuffix(".jsp");
+//        return viewResolver;
+//    }
+
 }
