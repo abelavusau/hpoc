@@ -1,0 +1,9 @@
+{
+"vehicleMake": "chevrolet",
+"vehicleYear": 2010,
+"pricePromise": false,
+"offerPrice": 5000,
+"trueMarketValue": 5050,
+"rate": 0.2,
+"carcode": false
+}

@@ -1,0 +1,66 @@
+<main class="col-md-8 col-xs-12 panel panel-primary lead_card">
+	<header class="row panel-heading">
+		<h1 class="panel-title col-md-9">Lead #{{id}} {{lead.vehicleMake}} {{lead.vehicleYear}}</h1>
+		<div class="logo text-hide col-md-3">Edmunds.com</div>
+	</header>
+	<div class=" panel-body" ng-class="{big: !closedGroup}">
+		<form class="col-md-8 fix_lead">
+			<div class="form-group range_control">
+				<label for="priceRange" class="price_label">Offer price <span class="badge">{{lead.offerPrice}}</span></label>
+				<span class="start_range">{{minPrice}}</span>
+				<span class="end_range">{{maxPrice}}</span>
+				<span class="tmv" ng-style="{right: {{tmvPosition}} + '%'}">TMV {{lead.trueMarketValue}}</span>
+				<range-slider ng-model="lead.offerPrice" ng-range-min="{{minPrice}}" ng-range-max="{{maxPrice}}" ng-range-step="100"></range-slider>
+			</div>
+			<div class="form-group">
+				<label class="checkbox-inline">
+					<input type="checkbox" id="pricePromise" ng-model="lead.pricePromise"> Price Promise
+				</label>
+				<label class="checkbox-inline fake">
+					<input type="checkbox" id="carcode" ng-model="lead.carcode"> CarCode
+				</label>
+				<label class="checkbox-inline fake">
+					<input type="checkbox" id="advertisement" ng-model="fake.advertisement"> Advertisement
+				</label>
+			</div>
+			<div class="form-group range_control ">
+				<label for="carPhotos" class="fake">Photos <span class="badge">{{fake.photos}}</span></label>
+				<span class="start_range">{{minPhotos}}</span>
+				<span class="end_range">{{maxPhotos}}</span>
+				<range-slider ng-model="fake.photos" ng-range-min="{{minPhotos}}" ng-range-max="{{maxPhotos}}" ng-range-step="1"></range-slider>
+			</div>
+			<div class="form-group">
+				<div class="list-group" ng-class="{closed: closedGroup}">
+					<li href="#" class="list-group-item" ng-class="{'disabled': closedGroup, 'list-group-item-info': !closedGroup}">
+						<h4 class="list-group-item-heading" ng-click="toggleIntensives()">Incentives</h4>
+					</li>
+					<li href="#" class="list-group-item incentive" >
+						<label class="checkbox-inline fake">
+							<input type="checkbox" id="incentive" value="incentive" ng-model="fake.offer"> Offer
+						</label>
+					</li>
+					<li href="#" class="list-group-item incentive">
+						<label class="checkbox-inline fake">
+							<input type="checkbox" id="incentive" value="incentive" ng-model="fake.financing"> Financing
+						</label>
+					</li>
+					<li href="#" class="list-group-item incentive">
+						<label class="checkbox-inline fake">
+							<input type="checkbox" id="incentive" value="incentive" ng-model="fake.leasing"> Leasing
+						</label>
+					</li>
+					<li href="#" class="list-group-item incentive">
+						<label class="checkbox-inline fake">
+							<input type="checkbox" id="incentive" value="incentive" ng-model="fake.other"> Other
+						</label>
+					</li>
+				</div>
+			</div>
+		</form>
+		<div class="success_rate col-md-4">
+			<p>Your offer is</p>
+			<strong class="percent">{{rate}}%</strong>
+			<p>likely to result a sale</p>
+		</div>
+	</div>
+</main>
