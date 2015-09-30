@@ -19,8 +19,11 @@
 	line-height: 40px;
 }
 .panel-body {
-	height: 255px;
+	height: 283px;
 	padding: 0;
+}
+.panel-body.big {
+	height: 450px;
 }
 .logo {
 	height: 40px;
@@ -50,9 +53,11 @@
 }
 .range_control .tmv {
 	position: absolute;
-	bottom: 35px;
+	bottom: 40px;
 	margin-right: -37px;
-	border-bottom: solid 1px black;
+	color: #FF6633;
+	font-weight: bold;
+	border-bottom: solid 1px #FF6633;
 }
 .range_control .tmv:before {
 	content: '';
@@ -63,9 +68,9 @@
 	display: block;
 	width: 0;
 	height: 0;
-	border: solid 3px black;
+	border: solid 3px #FF6633;
 	border-width: 6px 3px 0 3px;
-	border-color: black transparent transparent transparent;
+	border-color: #FF6633 transparent transparent transparent;
 }
 .success_rate {
 	height: 100%;
@@ -78,6 +83,13 @@
 	margin: 1px 0;
 	font-size: 250%;
 	font-weight: bold;
+}
+.list-group.closed .incentive {
+	display: none;
+}
+.list-group .list-group-item.disabled,
+.list-group .list-group-item.list-group-item-info {
+	cursor: pointer;
 }
 .fake {
 	color: #999;
