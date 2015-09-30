@@ -1,6 +1,9 @@
 package com.a3m.configuration;
 
+import com.a3m.filter.SimpleCORSFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
+
+import javax.servlet.Filter;
 
 public class AppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 	@Override
@@ -17,4 +20,12 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
 	protected String[] getServletMappings() {
 		return new String[] { "/" };
 	}
+
+    @Override
+    protected Filter[] getServletFilters() {
+
+        SimpleCORSFilter simpleCORSFilter = new SimpleCORSFilter();
+      ///  simpleCORSFilter.setEncoding("UTF-8");
+        return new Filter[] { simpleCORSFilter};
+    }
 }
