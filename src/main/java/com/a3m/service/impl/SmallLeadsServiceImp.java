@@ -23,7 +23,7 @@ public class SmallLeadsServiceImp implements SmallLeadsService {
 
 
     @Override
-    public SmallLeadModel findById(Long leadId) {
+    public SmallLeadModel findById(Long leadId, Double price, Boolean pricePromise, Boolean carCode) {
 
         SmallLeadDO smallLeadDO = smallLeadDao.findById(leadId);
         if (smallLeadDO == null) {
@@ -31,24 +31,40 @@ public class SmallLeadsServiceImp implements SmallLeadsService {
         }
         SmallLeadModel model = conversionService.convert(smallLeadDO, SmallLeadModel.class);
 
-        Double rate = calculateRate(model);
-        model.setRate(rate);
-
-        model.setCarCode(smallLeadDao.isCarcode(leadId));
+        // set price because it it's required for rate
         OfferPriceAndTMVDO offerPriceAndTMVDO = smallLeadDao.findOfferPriceAndTmv(leadId);
         if (offerPriceAndTMVDO != null) {
             model.setOfferPrice(offerPriceAndTMVDO.getOfferPrice());
             model.setTrueMarketValue(offerPriceAndTMVDO.getTrueMarketValue());
         }
+        // calculate car  code because it's used for rate
+        model.setCarCode(smallLeadDao.isCarcode(leadId));
+
+        final Double rate = calculateRate(model, price, pricePromise, carCode);
+        model.setRate(rate);
         return model;
     }
 
-    private Double calculateRate(SmallLeadModel model) {
+    private Double calculateRate(SmallLeadModel model, Double price, Boolean pricePromise, Boolean carCode) {
+
+        if (price == null) {
+            price = model.getOfferPrice();
+        }
+        if (pricePromise == null) {
+            pricePromise = model.isPricePromise();
+        }
+        if (carCode == null) {
+            carCode = model.getCarCode();
+        }
+
         LeadCriteria criteria = new LeadCriteria();
         criteria.setVehicleMake(model.getVehicleMake());
-        criteria.setPricePromise(model.isPricePromise());
+        criteria.setPricePromise(pricePromise);
         criteria.setYear(model.getVehicleYear());
+        criteria.setPrice(price);
+        criteria.setCarCode(carCode);
         criteria.setYearDelta(LeadCriteria.DEFAULT_YEAR_DELTA);
+        criteria.setPriceDelta(LeadCriteria.DEFAULT_OFFER_PRICE_DELTA);
 
         return successRateByCriteria(criteria);
     }
@@ -56,7 +72,7 @@ public class SmallLeadsServiceImp implements SmallLeadsService {
     public Double successRateByCriteria(LeadCriteria criteria) {
         Long total = smallLeadDao.findTotalCountByCriteria(criteria);
         if (NumberUtils.LONG_ZERO.equals(total)) {
-            return null;
+            return NumberUtils.DOUBLE_ZERO;
         }
         Long successfulCount = smallLeadDao.findSuccessfulCountByCriteria(criteria);
         return Double.valueOf(successfulCount)/Double.valueOf(total);

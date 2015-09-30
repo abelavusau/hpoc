@@ -5,7 +5,7 @@ import com.a3m.model.SmallLeadModel;
 
 public interface SmallLeadsService {
 
-    SmallLeadModel findById(Long leadId);
+    SmallLeadModel findById(Long leadId, Double price, Boolean pricePromise, Boolean carCode);
 
 
 }

@@ -43,23 +43,69 @@ public class SmallLeadDaoImpl implements SmallLeadDao {
 
     private final static String SELECT_LEADS_COUNT_BY_CRYTERIA = 
     		"select count(*) as total"
-    		+ " from lead l, referral r"
-    		+ " where l.ld_lead_id = r.rf_lead_id"
-            + " and  r.rf_edmunds_make = :vehicle_make"
-            + " and  r.rf_edmunds_model = :rf_edmunds_model"
-    		+ " and r.rf_edmunds_year between :vehicle_year_from"
-    		+ " and :vehicle_year_to"
+    		+ " from lead l" +
+               " INNER JOIN referral r" +
+               " ON l.ld_lead_id = r.rf_lead_id"
+               //     ", " // , f_carcode c"
+
+          //  + " and c.partner_lead_id = l.ld_partner_lead_id"
+            + " where  r.rf_edmunds_make = :vehicle_make"
+         //  /*!*/ + " and  r.rf_edmunds_model = :rf_edmunds_model"
+    		+ " and r.rf_edmunds_year between :vehicle_year_from and :vehicle_year_to"
+            + " and r.rf_offer_price between :price_from and :price_to"
     		+ " and l.ld_price_promise_flag = :price_promise_flag";
-    
+
+
     private final static String SELECT_SUCCESFUL_LEADS_COUNT_BY_CRYTERIA =
-    		"select count(*) as total"
-    		+ " from lead l, sales s, referral r"
-    		+ " where l.ld_lead_id = s.lead_id"
-            + " and r.rf_lead_id = s.lead_id"
-            + " and r.rf_edmunds_make = :vehicle_make"
-            + " and  r.rf_edmunds_model = :rf_edmunds_model"
-            + " and r.rf_edmunds_year between :vehicle_year_from and :vehicle_year_to"
-            + " and l.ld_price_promise_flag = :price_promise_flag";
+            "select count(DISTINCT s.lead_id) as total from sales s " +
+                    "where s.lead_id IN (select l.ld_lead_id"
+                    + " from lead l" +
+                    " INNER JOIN referral r" +
+                    " ON l.ld_lead_id = r.rf_lead_id"
+                    //     ", " // , f_carcode c"
+
+                    //  + " and c.partner_lead_id = l.ld_partner_lead_id"
+                    + " where  r.rf_edmunds_make = :vehicle_make"
+                    //  /*!*/ + " and  r.rf_edmunds_model = :rf_edmunds_model"
+                    + " and r.rf_edmunds_year between :vehicle_year_from and :vehicle_year_to"
+                    + " and r.rf_offer_price between :price_from and :price_to"
+                    + " and l.ld_price_promise_flag = :price_promise_flag)";
+
+//    private final static String SELECT_SUCCESFUL_LEADS_COUNT_BY_CRYTERIA =
+//            "select count(*) as total"
+//                    + " from lead l" +
+//                      " INNER JOIN referral r "
+//                   +  " ON l.ld_lead_id = r.rf_lead_id "
+//                   + " INNER JOIN sales s"
+//                   + " ON s.lead_id = r.rf_lead_id"
+//                   + " where "
+//                //    + " and r.rf_lead_id = s.lead_id"
+//                    // + " and c.partner_lead_id = l.ld_partner_lead_id"
+//                    + "  r.rf_edmunds_make = :vehicle_make"
+//                    //  /*!*/  + " and  r.rf_edmunds_model = :rf_edmunds_model"
+//                    + " and r.rf_edmunds_year between :vehicle_year_from and :vehicle_year_to"
+//                    + " and r.rf_offer_price between :price_from and :price_to"
+//                    + " and l.ld_price_promise_flag = :price_promise_flag";
+    
+//    private final static String SELECT_SUCCESFUL_LEADS_COUNT_BY_CRYTERIA =
+//    		"select count(*) as total"
+//    		+ " from lead l, sales s, referral r" // , f_carcode c"
+//    		+ " where l.ld_lead_id = s.lead_id"
+//
+//            + " and r.rf_lead_id = s.lead_id"
+//           // + " and c.partner_lead_id = l.ld_partner_lead_id"
+//            + " and r.rf_edmunds_make = :vehicle_make"
+//        //  /*!*/  + " and  r.rf_edmunds_model = :rf_edmunds_model"
+//            + " and r.rf_edmunds_year between :vehicle_year_from and :vehicle_year_to"
+//            + " and r.rf_offer_price between :price_from and :price_to"
+//            + " and l.ld_price_promise_flag = :price_promise_flag";
+
+
+
+
+
+
+
 
     private final static String SELECT_CARCODE_BY_LEAD_ID =
             "select c.k_carcode_id as carcode_id from lead l"
@@ -147,6 +193,9 @@ public class SmallLeadDaoImpl implements SmallLeadDao {
         namedParameters.put("vehicle_year_to", criteria.getYear() + criteria.getYearDelta());
         namedParameters.put("price_promise_flag", criteria.isPricePromise());
         namedParameters.put("rf_edmunds_model", criteria.getVehicleModel());
+        namedParameters.put("price_from", criteria.getPrice() - criteria.getPriceDelta());
+        namedParameters.put("price_to", criteria.getPrice() + criteria.getPriceDelta());
+        namedParameters.put("car_code", criteria.getCarCode());
         return namedParameters;
     }
 

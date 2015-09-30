@@ -3,12 +3,16 @@ package com.a3m.model;
 public class LeadCriteria {
 
     public static int DEFAULT_YEAR_DELTA = 2;
+    public static Double DEFAULT_OFFER_PRICE_DELTA = 2000.;
 
     private String vehicleMake;
     private int year;
     private int yearDelta;
-    private boolean pricePromise;
+    private Boolean pricePromise;
     private String vehicleModel;
+    private Double price;
+    private Double priceDelta;
+    private Boolean carCode;
 
     public String getVehicleMake() {
         return vehicleMake;
@@ -48,5 +52,29 @@ public class LeadCriteria {
 
     public void setVehicleModel(String vehicleModel) {
         this.vehicleModel = vehicleModel;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    public Boolean getCarCode() {
+        return carCode;
+    }
+
+    public void setCarCode(Boolean carCode) {
+        this.carCode = carCode;
+    }
+
+    public Double getPriceDelta() {
+        return priceDelta;
+    }
+
+    public void setPriceDelta(Double priceDelta) {
+        this.priceDelta = priceDelta;
     }
 }
