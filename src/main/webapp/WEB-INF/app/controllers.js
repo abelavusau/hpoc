@@ -30,7 +30,7 @@ function ($scope, leadInfo, $routeParams, Lead) {
 	};
 	$scope.minPhotos = $scope.fake.photos - 10 < 0 ? 0 : $scope.fake.photos - 10;
 	$scope.maxPhotos = $scope.fake.photos + 10;
-	$scope.rate= leadInfo.rate * 100;
+	$scope.rate= parseInt(leadInfo.rate * 100);
 	$scope.id = $routeParams.id;
 
 	$scope.toggleIntensives = function () {
@@ -45,7 +45,7 @@ function ($scope, leadInfo, $routeParams, Lead) {
 				'pricePromise': newValue.pricePromise,
 				'carcode': newValue.carcode
 			}, function (data) {
-				$scope.rate = data.rate * 100;
+				$scope.rate = parseInt(data.rate * 100);
 			});
 		} 
 	}, true);
