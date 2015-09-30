@@ -2,6 +2,7 @@ package com.a3m.service.impl;
 
 
 import com.a3m.dao.SmallLeadDao;
+import com.a3m.domain.OfferPriceAndTMVDO;
 import com.a3m.domain.SmallLeadDO;
 import com.a3m.model.LeadCriteria;
 import com.a3m.model.SmallLeadModel;
@@ -32,6 +33,13 @@ public class SmallLeadsServiceImp implements SmallLeadsService {
 
         Double rate = calculateRate(model);
         model.setRate(rate);
+
+        model.setCarCode(smallLeadDao.isCarcode(leadId));
+        OfferPriceAndTMVDO offerPriceAndTMVDO = smallLeadDao.findOfferPriceAndTmv(leadId);
+        if (offerPriceAndTMVDO != null) {
+            model.setOfferPrice(offerPriceAndTMVDO.getOfferPrice());
+            model.setTrueMarketValue(offerPriceAndTMVDO.getTrueMarketValue());
+        }
         return model;
     }
 

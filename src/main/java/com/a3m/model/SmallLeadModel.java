@@ -7,9 +7,12 @@ public class SmallLeadModel implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private String vehicleMake;
+    private String vehicleModel;
     private int vehicleYear;
     private Boolean pricePromise;
-    private Float offerPrice;
+    private Boolean carCode;
+    private Double offerPrice;
+    private Double trueMarketValue;
     private Double rate;
 
     public String getVehicleMake() {
@@ -36,11 +39,11 @@ public class SmallLeadModel implements Serializable {
         this.pricePromise = pricePromise;
     }
 
-    public Float getOfferPrice() {
+    public Double getOfferPrice() {
         return offerPrice;
     }
 
-    public void setOfferPrice(Float offerPrice) {
+    public void setOfferPrice(Double offerPrice) {
         this.offerPrice = offerPrice;
     }
 
@@ -50,5 +53,29 @@ public class SmallLeadModel implements Serializable {
 
     public void setRate(Double rate) {
         this.rate = rate;
+    }
+
+    public String getVehicleModel() {
+        return vehicleModel;
+    }
+
+    public void setVehicleModel(String vehicleModel) {
+        this.vehicleModel = vehicleModel;
+    }
+
+    public Boolean getCarCode() {
+        return carCode;
+    }
+
+    public void setCarCode(Boolean carCode) {
+        this.carCode = carCode;
+    }
+
+    public Double getTrueMarketValue() {
+        return trueMarketValue;
+    }
+
+    public void setTrueMarketValue(Double trueMarketValue) {
+        this.trueMarketValue = trueMarketValue;
     }
 }

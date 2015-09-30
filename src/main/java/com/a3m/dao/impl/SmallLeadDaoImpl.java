@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.a3m.dao.SmallLeadDao;
+import com.a3m.domain.OfferPriceAndTMVDO;
 import com.a3m.domain.SmallLeadDO;
 import com.a3m.mapper.SmallLeadDOMapper;
 import com.a3m.model.LeadCriteria;
@@ -30,6 +31,7 @@ public class SmallLeadDaoImpl implements SmallLeadDao {
     
     private final static String SELECT_SMALL_LEAD_BY_ID_SQL = 
     		"SELECT r.rf_edmunds_make"
+            + ", r.rf_edmunds_model"
     		+ ", r.rf_edmunds_year"
     		+ ", l.ld_price_promise_flag"
     		+ ", r.rf_offer_price"
@@ -44,6 +46,7 @@ public class SmallLeadDaoImpl implements SmallLeadDao {
     		+ " from lead l, referral r"
     		+ " where l.ld_lead_id = r.rf_lead_id"
             + " and  r.rf_edmunds_make = :vehicle_make"
+            + " and  r.rf_edmunds_model = :rf_edmunds_model"
     		+ " and r.rf_edmunds_year between :vehicle_year_from"
     		+ " and :vehicle_year_to"
     		+ " and l.ld_price_promise_flag = :price_promise_flag";
@@ -54,8 +57,25 @@ public class SmallLeadDaoImpl implements SmallLeadDao {
     		+ " where l.ld_lead_id = s.lead_id"
             + " and r.rf_lead_id = s.lead_id"
             + " and r.rf_edmunds_make = :vehicle_make"
+            + " and  r.rf_edmunds_model = :rf_edmunds_model"
             + " and r.rf_edmunds_year between :vehicle_year_from and :vehicle_year_to"
             + " and l.ld_price_promise_flag = :price_promise_flag";
+
+    private final static String SELECT_CARCODE_BY_LEAD_ID =
+            "select c.k_carcode_id as carcode_id from lead l"
+          + " inner join sales s"
+          + " on l.ld_lead_id = s.lead_id"
+          + " inner join f_carcode c"
+          + " on s.partner_lead_id = c.partner_lead_id"
+          + " where l.ld_lead_id = ?";
+
+    private final static String SELECT_OFFER_PRICE_AND_TMV_SQL =
+    "select r.rf_offer_price, r.rf_tmv_price from lead l"
+    + " inner join referral r"
+    + " on l.ld_lead_id = r.rf_lead_id"
+    + " where l.ld_lead_id = ?";
+
+
 
     private final RowMapper<Long> TOTAL_ROW_MAPPER = new RowMapper<Long>() {
         @Override
@@ -91,12 +111,42 @@ public class SmallLeadDaoImpl implements SmallLeadDao {
         return null;
     }
 
+    @Override
+    public boolean isCarcode(Long leadId) {
+        List<String> carcodeIds = jdbcTemplate.query(SELECT_CARCODE_BY_LEAD_ID, new Object[]{leadId}, new RowMapper<String>() {
+            @Override
+            public String mapRow(ResultSet rs, int rowNum) throws SQLException {
+                return rs.getString("carcode_id");
+            }
+        });
+        return CollectionUtils.isNotEmpty(carcodeIds);
+    }
+
+    @Override
+    public OfferPriceAndTMVDO findOfferPriceAndTmv(Long leadId) {
+
+        List<OfferPriceAndTMVDO> results = jdbcTemplate.query(SELECT_OFFER_PRICE_AND_TMV_SQL, new Object[]{leadId}, new RowMapper<OfferPriceAndTMVDO>() {
+            @Override
+            public OfferPriceAndTMVDO mapRow(ResultSet rs, int rowNum) throws SQLException {
+                OfferPriceAndTMVDO tmvdo = new OfferPriceAndTMVDO();
+                tmvdo.setOfferPrice(rs.getDouble("rf_offer_price"));
+                tmvdo.setTrueMarketValue(rs.getDouble("rf_tmv_price"));
+                return tmvdo;
+            }
+        });
+        if (CollectionUtils.isNotEmpty(results)) {
+            return DataAccessUtils.singleResult(results);
+        }
+        return null;
+    }
+
     private Map criteriaToMap(LeadCriteria criteria) {
         Map<String, Object> namedParameters = new HashMap();
         namedParameters.put("vehicle_make", criteria.getVehicleMake());
         namedParameters.put("vehicle_year_from", criteria.getYear() - criteria.getYearDelta());
         namedParameters.put("vehicle_year_to", criteria.getYear() + criteria.getYearDelta());
         namedParameters.put("price_promise_flag", criteria.isPricePromise());
+        namedParameters.put("rf_edmunds_model", criteria.getVehicleModel());
         return namedParameters;
     }
 

@@ -8,6 +8,7 @@ public class LeadCriteria {
     private int year;
     private int yearDelta;
     private boolean pricePromise;
+    private String vehicleModel;
 
     public String getVehicleMake() {
         return vehicleMake;
@@ -39,5 +40,13 @@ public class LeadCriteria {
 
     public void setPricePromise(boolean pricePromise) {
         this.pricePromise = pricePromise;
+    }
+
+    public String getVehicleModel() {
+        return vehicleModel;
+    }
+
+    public void setVehicleModel(String vehicleModel) {
+        this.vehicleModel = vehicleModel;
     }
 }
