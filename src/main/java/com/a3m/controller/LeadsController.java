@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.a3m.model.LeadStatisticsModel;
@@ -60,8 +61,11 @@ public class LeadsController extends AbstractRestController {
 
 
 	@RequestMapping("/lead/{id}")
-	public SmallLeadModel getLeadById(@PathVariable("id") Long id) {
-		SmallLeadModel model  = smallLeadsService.findById(id);
+	public SmallLeadModel getLeadById(@PathVariable("id") Long id,
+                                      @RequestParam(value = "price", required = false) Double price,
+                                      @RequestParam(value = "pricePromise", required = false) Boolean pricePromise,
+                                      @RequestParam(value = "carcode", required = false) Boolean carCode) {
+		SmallLeadModel model  = smallLeadsService.findById(id, price, pricePromise, carCode);
 
 		if (model == null) {
 			throw new ResourceNotFoundException();

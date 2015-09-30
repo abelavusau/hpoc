@@ -10,12 +10,12 @@ public class SmalLeadDoToSmalLeadModelConverter implements Converter<SmallLeadDO
 	public SmallLeadModel convert(SmallLeadDO source) {
 		SmallLeadModel model = new SmallLeadModel();
 		
-		model.setVehicleMake(StringUtils.trimToNull(source.getVehicleMake()));
-        model.setVehicleModel(StringUtils.trimToNull(source.getVehicleModel()));
+		model.setVehicleMake(source.getVehicleMake());
+        model.setVehicleModel(source.getVehicleModel());
 		model.setVehicleYear(source.getVehicleYear());
 		model.setPricePromise(source.isPricePromise());
 		model.setOfferPrice(source.getOfferPrice());
-		
+
 		return model;
 	}
 }
